@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Your Form View Definition -->
+    <record id="costing_sheet_green_clothing_form_view" model="ir.ui.view">
+        <field name="name">costing_sheet_green_clothing_form</field>
+        <field name="model">costing.sheet.green.clothing</field>
+        <field name="arch" type="xml">
+            <form>
+                <!-- Add All Fields You Want In The Form Here -->
+                <header>
+                    <button name="submit_btn" string="Submit" type="object" states='draft' class="oe_highlight"/>
+                    <button name="approve_btn" string="Approve" type="object" states='approval'
+                            groups="green_clothing.costing_sheet_green_clothing_approval" class="oe_highlight"/>
+                    <button name="create_quotation_btn" string="Create Quotation" type="object" states='approve' class="oe_highlight"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div name="button_box" class="oe_button_box">
+                        <button class="oe_stat_button" type="object" name="action_purchase_order"
+                                icon="fa-retweet">
+                        <field string="Purchase Order" name="purchase_order_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="item_id"/>
+                            <field name="customer_id"/>
+                            <field name="order_qty"/>
+                            <field name="fabric_details"/>
+                            <field name="wash_color"/>
+                            <field name="pocketing_details"/>
+                            <field name="fabric_qty"/>
+                        </group>
+                        <group>
+                            <field name="create_date"/>
+                            <field name="season"/>
+                            <field name="size_range"/>
+                            <field name="profit"/>
+                            <field name="commission"/>
+                            <field name="exchange_rate"/>
+                            <field name="rejection"/>
+                            <field name="order_date"/>
+                            <field name="shipment_date"/>
+                            <field name="customer_po_number"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Parameters">
+                            <field name="cs_parameter_line_ids">
+                                <tree string="Lines" editable="bottom">
+                                    <field name="costing_par"/>
+                                    <field name="consumption"/>
+                                    <field name="price"/>
+                                    <field name="total"/>
+                                </tree>
+                            </field>
+                            <group name="note_group" col="6">
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                    <field name="parameters_total"/>
+                                    <field name="fabric_details_total"/>
+                                    <field name="trim_details_total"/>
+                                    <field name="sub_total"/>
+                                    <field name="rejection_total"/>
+                                    <field name="sheet_total"/>
+                                    <field name="profit_total"/>
+                                    <field name="grand_total"/>
+                                    <field name="c_total"/>
+                                    <field name="price_per_piece"/>
+                                </group>
+                                <div class="oe_clear"/>
+                            </group>
+                        </page>
+                        <page string="Trims Details">
+                            <field name="cs_trims_line_ids">
+                                <tree string="Lines" editable="bottom">
+                                    <field name="trims"/>
+                                    <field name="po_quantity"/>
+                                    <field name="consumption"/>
+                                    <field name="unit_price"/>
+                                </tree>
+                            </field>
+                            <group name="note_group" col="6">
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                    <field name="trims_total"/>
+                                </group>
+                                <div class="oe_clear"/>
+                            </group>
+                        </page>
+                        <page string="Fabric Details">
+                            <field name="cs_fabric_line_ids">
+                                <tree string="Lines" editable="bottom">
+                                    <field name="fabric_items"/>
+                                    <field name="po_quantity"/>
+                                    <field name="consumption"/>
+                                    <field name="price"/>
+                                    <field name="total"/>
+                                </tree>
+                            </field>
+                            <group name="note_group" col="6">
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="fabric_total">
+                                    <field name="fabric_total"/>
+                                </group>
+                                <div class="oe_clear"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Your List View Definition -->
+    <record id="costing_sheet_green_clothing_tree_view" model="ir.ui.view">
+        <field name="name">costing_sheet_green_clothing_tree</field>
+        <field name="model">costing.sheet.green.clothing</field>
+        <field name="arch" type="xml">
+            <tree>
+                <!-- Add All Fields You Want In The List Here -->
+                <field name="item_id"/>
+                <field name="customer_id"/>
+                <field name="order_qty"/>
+                <field name="fabric_qty"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Your Action Window Definition -->
+    <record id="costing_sheet_green_clothing_action" model="ir.actions.act_window">
+        <field name="name">Costing Sheet</field>
+        <field name="res_model">costing.sheet.green.clothing</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--Creating Child of Module Menu-->
+    <menuitem id="costing_sheet_green_clothing_menu"
+              name="Costing Sheet"
+              sequence="0"/>
+
+    <menuitem id="costing_sheet_green_clothing_main_menu"
+              name="Costing Sheet"
+              parent="green_clothing.costing_sheet_green_clothing_menu"
+              sequence="0"/>
+
+    <menuitem id="costing_sheet_green_clothing_child_menu"
+              name="Costing Sheet"
+              parent="green_clothing.costing_sheet_green_clothing_main_menu"
+              action="costing_sheet_green_clothing_action"
+              sequence="0"/>
+
+</odoo>

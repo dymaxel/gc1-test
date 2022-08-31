@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+action_product_consumption_line,action.product.consumption.line,model_product_consumption_line,,1,1,1,1
+access_gc_workorder,access_gc_workorder,model_gc_workorder,base.group_user,1,1,1,0

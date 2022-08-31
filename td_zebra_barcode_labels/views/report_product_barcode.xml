@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="dynamic_zbarcode_layout">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+        <!-- <t t-esc="company.update_scss()"/> -->
+        <t t-raw="0"/>
+    </template>
+
+
+	<template id="report_product_tdzebrabarcode">
+		<t t-set="loopvalue" t-value="get_lines(data['form'])" />
+		<t t-call="td_zebra_barcode_labels.dynamic_zbarcode_layout">
+			<t t-call="web.html_container">
+				<t t-foreach="loopvalue" t-as="line">
+					<div class="page">
+						<table
+							style="width:100%;text-align: center;border-color: white;">
+							<tr style="background-color:white;">
+								<td valign="center"
+									t-attf-style="width:33%;padding-top: {{config.first_padding_top or '1'}}px;padding-bottom: {{config.first_padding_bottom or '1'}}px;padding-left: {{config.first_padding_left or '1'}}px;padding-right: {{config.first_padding_right or '1'}}px;">
+									<t t-if="is_company and line.get('name_0') and config.company_name">
+										<div t-esc="config.company_name"
+											t-attf-style="font-size:{{config.company_size or '7'}}px;font-weight: 800;" />
+									</t>
+									<t t-if="product_name and line.get('name_0')">
+										<strong>
+											<div t-esc="line.get('name_0')"
+												t-attf-style="font-size:{{config.product_name_size or '10'}}px;" />
+										</strong>
+									</t>
+									<t t-if="product_code and product_variant">
+										<div t-attf-style="font-size:{{config.product_code_size or '7'}}px;">
+											<span t-esc="line.get('default_code_0')"/>
+											<span t-esc="line.get('variants_0')"/>
+										</div>
+									</t>
+									<t t-if="batch_no">
+										<div t-attf-style="font-size:{{config.batch_size or '7'}}px;">
+											<span t-esc="line.get('batch_no_0')"/>
+										</div>
+									</t>
+									<!-- <t t-if="product_variant and line.get('variants_0')">
+										<div t-esc="line.get('variants_0')"
+											t-attf-style="font-size:{{config.product_variant_size or '7'}}px;" />
+									</t> -->
+									<t t-if="line.get('code_0')">
+										<div
+											t-raw="get_barcode_string(line.get('code_0'), data['form'])" style="margin-top:2px;"/>
+									</t>
+									<t t-if="config.humanreadable == false and config.barcode_type == 'EAN13'">
+										<div t-attf-style="font-size:{{config.barcode_font_size or '5'}}px;font-weight: 800;">
+											<span t-esc="line.get('code_0')"/>
+										</div>
+									</t>
+									<t t-if="price_display">
+										<div t-attf-style="font-size:{{config.price_display_size or '7'}}" t-esc="line.get('list_price_0')" />
+									</t>
+									<t t-if="liquidation">
+										<div t-attf-style="font-size:{{config.liquidation_size or '7'}}px;" t-esc="line.get('liquidation_0')" />
+									</t>
+								</td>
+								<td valign="center"
+									t-attf-style="width:33%;padding-top: {{config.second_padding_top or '1'}}px;padding-bottom: {{config.second_padding_bottom or '1'}}px;padding-left: {{config.second_padding_left or '1'}}px;padding-right: {{config.second_padding_right or '1'}}px;">
+									<t t-if="is_company and line.get('name_1') and config.company_name">
+										<div t-esc="config.company_name"
+											t-attf-style="font-size:{{config.company_size or '7'}}px;font-weight: 800;" />
+									</t>
+									<t t-if="product_name">
+										<strong>
+											<div t-esc="line.get('name_1')"
+												t-attf-style="font-size:{{config.product_name_size or '10'}}px;" />
+										</strong>
+									</t>
+									<t t-if="product_code and product_variant">
+										<div t-attf-style="font-size:{{config.product_code_size or '7'}}px;">
+											<span t-esc="line.get('default_code_1')"/>
+											<span t-esc="line.get('variants_1')"/>
+										</div>
+									</t>
+									<t t-if="batch_no">
+										<div t-attf-style="font-size:{{config.batch_size or '7'}}px;">
+											<span t-esc="line.get('batch_no_1')"/>
+										</div>
+									</t>
+									<!-- <t t-if="product_variant">
+										<div t-esc="line.get('variants_1')"
+											t-attf-style="font-size:{{config.product_variant_size or '7'}}px;" />
+									</t> -->
+									<t t-if="line.get('code_1')">
+										<div
+											t-raw="get_barcode_string(line.get('code_1'), data['form'])" style="margin-top:2px;"/>
+									</t>
+									<t t-if="config.humanreadable == false and config.barcode_type == 'EAN13'">
+										<div t-attf-style="font-size:{{config.barcode_font_size or '5'}}px;font-weight: 800;">
+											<span t-esc="line.get('code_1')"/>
+										</div>
+									</t>
+									<t t-if="price_display">
+										<div t-attf-style="font-size:{{config.price_display_size or '7'}}" t-esc="line.get('list_price_1')" />
+									</t>
+									<t t-if="liquidation">
+										<div t-attf-style="font-size:{{config.liquidation_size or '7'}}px;" t-esc="line.get('liquidation_1')" />
+									</t>
+								</td>
+								<td valign="center"
+									t-attf-style="width:33%;padding-top: {{config.second_padding_top or '1'}}px;padding-bottom: {{config.second_padding_bottom or '1'}}px;padding-left: {{config.second_padding_left or '1'}}px;padding-right: {{config.second_padding_right or '1'}}px;">
+									<t t-if="is_company and line.get('name_2') and config.company_name">
+										<div t-esc="config.company_name"
+											t-attf-style="font-size:{{config.company_size or '7'}}px;font-weight: 800;" />
+									</t>
+									<t t-if="product_name">
+										<strong>
+											<div t-esc="line.get('name_2')"
+												t-attf-style="font-size:{{config.product_name_size or '10'}}px;" />
+										</strong>
+									</t>
+									<t t-if="product_code and product_variant">
+										<div t-attf-style="font-size:{{config.product_code_size or '7'}}px;">
+											<span t-esc="line.get('default_code_2')"/>
+											<span t-esc="line.get('variants_2')"/>
+										</div>
+									</t>
+									<t t-if="batch_no">
+										<div t-attf-style="font-size:{{config.batch_size or '7'}}px;">
+											<span t-esc="line.get('batch_no_2')"/>
+										</div>
+									</t>
+									<!-- <t t-if="product_variant">
+										<div t-esc="line.get('variants_2')"
+											t-attf-style="font-size:{{config.product_variant_size or '7'}}px;" />
+									</t> -->
+									<t t-if="line.get('code_2')">
+										<div
+											t-raw="get_barcode_string(line.get('code_2'), data['form'])" style="margin-top:2px;"/>
+									</t>
+									<t t-if="config.humanreadable == false and config.barcode_type == 'EAN13'">
+										<div t-attf-style="font-size:{{config.barcode_font_size or '5'}}px;font-weight: 800;">
+											<span t-esc="line.get('code_2')"/>
+										</div>
+									</t>
+									<t t-if="price_display">
+										<div t-attf-style="font-size:{{config.price_display_size or '7'}}" t-esc="line.get('list_price_2')" />
+									</t>
+									<t t-if="liquidation">
+										<div t-attf-style="font-size:{{config.liquidation_size or '7'}}px;" t-esc="line.get('liquidation_2')" />
+									</t>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<p style="page-break-before:always;"/>
+				</t>
+			</t>
+		</t>
+	</template>
+</odoo>

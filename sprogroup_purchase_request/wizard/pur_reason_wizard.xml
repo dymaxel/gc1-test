@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="wizard_pur_reason_form" model="ir.ui.view">
+        <field name="name">create_pur_wizard_reason_form</field>
+        <field name="model">create.pur.wizard.reason</field>
+        <field name="arch" type="xml">
+            <form string="Reason">
+                <sheet>
+                    <group>
+                        <field name="reason_field"/>
+                    </group>
+                     <footer>
+                    <button name="action_resolve_pur_reason_wiz" string="Reject" type="object"
+                            class="oe_highlight"/>
+                    <button string="Close" special="cancel"/>
+                </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

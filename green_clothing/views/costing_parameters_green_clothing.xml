@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Your Form View Definition -->
+    <record id="costing_parameters_green_clothing_form_view" model="ir.ui.view">
+        <field name="name">costing_parameters_green_clothing_form</field>
+        <field name="model">costing.parameters.green.clothing</field>
+        <field name="arch" type="xml">
+            <form>
+                <!-- Add All Fields You Want In The Form Here -->
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Your List View Definition -->
+    <record id="costing_parameters_tree_green_clothing_view" model="ir.ui.view">
+        <field name="name">costing_parameters_green_clothing_tree</field>
+        <field name="model">costing.parameters.green.clothing</field>
+        <field name="arch" type="xml">
+            <tree>
+                <!-- Add All Fields You Want In The List Here -->
+                <field name="name"/>
+                <field name="consumption"/>
+                <field name="price"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Your Action Window Definition -->
+    <record id="costing_parameters_green_clothing_action" model="ir.actions.act_window">
+        <field name="name">Costing Parameters</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">costing.parameters.green.clothing</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Creating Main Menu -->
+    <menuitem id="costing_parameters_main_menu"
+              name="Configuration"
+              parent="green_clothing.costing_sheet_green_clothing_menu"
+              sequence="1"/>
+
+    <!-- Creating Child of Main Menu -->
+    <menuitem id="costing_parameters_child_menu"
+              name="Costing Parameters"
+              parent="green_clothing.costing_parameters_main_menu"
+              action="costing_parameters_green_clothing_action"
+              sequence="0"/>
+
+</odoo>

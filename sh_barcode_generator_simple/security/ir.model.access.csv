@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_generate_product_barcode,access_generate_product_barcode,model_generate_product_barcode,group_barcode_generator,1,1,1,1
+access_generate_product_barcode_admin,access_generate_product_barcode_admin,model_generate_product_barcode,base.group_erp_manager,1,1,1,1

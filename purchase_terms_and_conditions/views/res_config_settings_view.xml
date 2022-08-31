@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_purchase_inherit_terms" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.terms</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="25"/>
+        <field name="inherit_id" ref="purchase.res_config_settings_view_form_purchase"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='purchase_setting_container']" position="inside">
+                <div class="col-12 col-lg-6 o_setting_box">
+                    <div class="o_setting_left_pane">
+                        <field name="use_purchase_terms"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="use_purchase_terms"/>
+                        <div class="text-muted">
+                            Show terms &amp; conditions on purchse orders
+                        </div>
+                        <div class="content-group" attrs="{'invisible': [('use_purchase_terms','=',False)]}">
+                            <div class="mt16">
+                                <field name="purchase_terms" placeholder="Insert your terms &amp; conditions here..."/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

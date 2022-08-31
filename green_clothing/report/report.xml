@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="paperformat_costing_sheet" model="report.paperformat">
+            <field name="name">Costing Sheet</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">8</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">30</field>
+            <field name="dpi">90</field>
+    </record>
+
+    <report id="costing_sheet_report"
+            model="costing.sheet.green.clothing"
+            name="green_clothing.costing_sheet_view"
+            file="green_clothing.costing_sheet_view"
+            report_type="qweb-pdf"
+            string="Costing Sheet"
+            paperformat="paperformat_costing_sheet"/>
+
+</odoo>

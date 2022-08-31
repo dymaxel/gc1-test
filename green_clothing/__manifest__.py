@@ -1,0 +1,20 @@
+{
+    'name': "Green Clothing",
+    'description': "Green Clothing",
+    'author': 'XYZ',
+    'category': 'Account',
+    'version': '14.0.0.1',
+    'application': True,
+    'depends': ['purchase', 'gc_extended'],
+    'data': [
+        'data/sequence.xml',
+        'data/template.xml',
+        'security/security.xml',
+        'security/ir.model.access.csv',
+        'report/report.xml',
+        'report/costing_sheet.xml',
+        'views/costing_sheet_green_clothing.xml',
+        'views/costing_parameters_green_clothing.xml',
+        'views/purchase_order.xml',
+    ],
+}

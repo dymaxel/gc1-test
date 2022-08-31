@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<odoo>
+
+    <act_window id="act_zbarcode_template_labels" name="Zebra Barcode (2 Labels/Page)"
+        res_model="tdzebrabarcode.labels"
+        binding_model="product.template" view_mode="form" target="new"
+        />
+
+    <act_window id="act_zbarcode_labels" name="Zebra Barcode (2 Labels/Page)"
+        res_model="tdzebrabarcode.labels"
+        binding_model="product.product" view_mode="form" target="new"
+        />
+
+    <act_window id="act_2purchase_bar_labels" name="Zebra Barcode (2 Labels/Page)"
+        res_model="tdzebrabarcode.labels"
+        binding_model="purchase.order" view_mode="form" target="new"
+        />
+
+    <act_window id="act_2picking_bar_labels" name="Zebra Barcode (2 Labels/Page)"
+        res_model="tdzebrabarcode.labels"
+        binding_model="stock.picking" view_mode="form" target="new"
+        />
+    <act_window id="act_2stock_quant_labels" name="Zebra Barcode (3 Labels/Page)"
+        res_model="tdzebrabarcode.labels"
+        binding_model="stock.quant" view_mode="form" target="new"
+        />
+
+    <menuitem id="menu_main_zbarcode_labels" name="Zebra Barcode (2 Labels/Page)"
+        parent="stock.menu_stock_root" sequence="5"
+        groups="td_zebra_barcode_labels.group_zbarcode_labels" />
+
+    <menuitem action="action_zbarcode_labels" id="menu_action_zbarcode_labels"
+        parent="menu_main_zbarcode_labels" sequence="10"
+        groups="td_zebra_barcode_labels.group_zbarcode_labels" />
+
+    <menuitem id="menu_zbarcode_configuration" name="Barcode Config"
+        action="action_tdzebrabarcode_config" parent="menu_main_zbarcode_labels"
+        sequence="20" groups="td_zebra_barcode_labels.group_zbarcode_labels" />
+
+</odoo>

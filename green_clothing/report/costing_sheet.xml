@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="costing_sheet_template">
+            <div class="header"/>
+
+            <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-raw="0"/>
+            </div>
+
+            <div class="footer"/>
+        </template>
+
+        <template id="costing_sheet_view">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="green_clothing.costing_sheet_template">
+                        <div class="page">
+                            <style>
+                                table {
+                                width: 100%;
+                                }
+                                tr, th, td{
+                                padding: 5px;
+                                }
+                                table.b, table.b td{
+                                border-collapse: collapse;
+                                border: 1px solid Black;
+                                }
+                                table.b th{
+                                border-collapse: collapse;
+                                border: 1px solid Black;
+                                <!--                                background-color: #ced4da;-->
+                                }
+                            </style>
+                            <div class="text-center" style="font_size:18px">
+                                <h3>Costing Sheet</h3>
+                            </div>
+                            <div style="margin-top:15px">
+                                <table class="b">
+                                    <tr>
+                                        <th style="width:25%">Style #</th>
+                                        <td style="width:40%"><span t-esc="doc.item_id.name"/></td>
+                                        <th style="width:12%">Date</th>
+                                        <td style="width:23%"><span t-esc="get_date_format(doc.create_date)"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Buyer</th>
+                                        <td><span t-esc="doc.customer_id.name"/></td>
+                                        <th>Item</th>
+                                        <td><span t-esc="doc.item_id.name"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th>QTY</th>
+                                        <td><span t-esc="'{0:,.2f}'.format(doc.order_qty)"/></td>
+                                        <th>Season</th>
+                                        <td><span t-esc="doc.season"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Wash/Color</th>
+                                        <td><span t-esc="doc.wash_color"/></td>
+                                        <th>Size Range</th>
+                                        <td><span t-esc="doc.size_range"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Fabric Detail</th>
+                                        <td><span t-esc="doc.fabric_details"/></td>
+                                        <th>Fabric Qty</th>
+                                        <td><span t-esc="doc.fabric_qty"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Pocketing Detail</th>
+                                        <td><span t-esc="doc.pocketing_details"/></td>
+                                        <th/>
+                                        <td/>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div style="margin-top:15px;">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <table class="b">
+                                            <tr>
+                                                <th style="width:25%">Description</th>
+                                                <th style="width:14%">Consumption</th>
+                                                <th style="width:14%">Price</th>
+                                                <th style="width:17%">Total</th>
+                                            </tr>
+                                            <tr t-foreach="doc.cs_parameter_line_ids" t-as="lines">
+                                                <td>
+                                                    <span t-esc="lines.costing_par.name"/>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="'{0:,.2f}'.format(lines.consumption)"/>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="'{0:,.2f}'.format(lines.price)"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-esc="'{0:,.2f}'.format(lines.total)"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="background-color: #adb5bd">Parameters Total</th>
+                                                <td/>
+                                                <td/>
+                                                <th class="text-right" style="background-color: #adb5bd"><span t-esc="'{0:,.2f}'.format(doc.parameters_total)"/></th>
+                                            </tr>
+                                            <tr>
+                                                <th style="background-color: #adb5bd">Fabric Total</th>
+                                                <td/>
+                                                <td/>
+                                                <th class="text-right" style="background-color: #adb5bd"><span t-esc="'{0:,.2f}'.format(doc.fabric_details_total)"/></th>
+                                            </tr>
+                                            <tr>
+                                                <th style="background-color: #adb5bd">Trims Total</th>
+                                                <td/>
+                                                <td/>
+                                                <th class="text-right" style="background-color: #adb5bd"><span t-esc="'{0:,.2f}'.format(doc.trim_details_total)"/></th>
+                                            </tr>
+                                            <tr>
+                                                <th style="background-color: #adb5bd">Sub Total</th>
+                                                <td/>
+                                                <td/>
+                                                <th class="text-right" style="background-color: #adb5bd"><span t-esc="'{0:,.2f}'.format(doc.sub_total)"/></th>
+                                            </tr>
+                                            <tr>
+                                                <th style="background-color: #adb5bd">
+                                                    Rejection
+                                                    <t t-if="doc.rejection">
+                                                        <span t-esc="'{0:,.2f}'.format(doc.rejection)"/><![CDATA[&nbsp;]]>%
+                                                    </t>
+                                                </th>
+                                                <td/>
+                                                <td/>
+                                                <th class="text-right" style="background-color: #adb5bd"><span t-esc="'{0:,.2f}'.format(doc.rejection_total)"/></th>
+                                            </tr>
+                                            <tr>
+                                                <th style="background-color: #adb5bd">Total</th>
+                                                <td/>
+                                                <td/>
+                                                <th class="text-right" style="background-color: #adb5bd"><span t-esc="'{0:,.2f}'.format(doc.sheet_total)"/></th>
+                                            </tr>
+                                            <tr>
+                                                <th style="background-color: #adb5bd">
+                                                    Profit
+                                                    <t t-if="doc.profit">
+                                                        <span t-esc="'{0:,.2f}'.format(doc.profit)"/><![CDATA[&nbsp;]]>%
+                                                    </t>
+                                                </th>
+                                                <td/>
+                                                <td/>
+                                                <th class="text-right" style="background-color: #adb5bd"><span t-esc="'{0:,.2f}'.format(doc.profit_total)"/></th>
+                                            </tr>
+                                            <tr>
+                                                <th style="background-color: #adb5bd">G.Total</th>
+                                                <td/>
+                                                <td/>
+                                                <th class="text-right" style="background-color: #adb5bd"><span t-esc="'{0:,.2f}'.format(doc.grand_total)"/></th>
+                                            </tr>
+                                            <tr>
+                                                <th style="background-color: #adb5bd">
+                                                    Commission
+                                                    <t t-if="doc.commission">
+                                                        <span t-esc="'{0:,.2f}'.format(doc.commission)"/><![CDATA[&nbsp;]]>%
+                                                    </t>
+                                                </th>
+                                                <td/>
+                                                <td/>
+                                                <th class="text-right" style="background-color: #adb5bd"><span t-esc="'{0:,.2f}'.format(doc.c_total)"/></th>
+                                            </tr>
+                                            <tr>
+                                                <th style="background-color: #adb5bd">Conversion</th>
+                                                <td/>
+                                                <td/>
+                                                <th class="text-right" style="background-color: #adb5bd"><span t-esc="'{0:,.2f}'.format(doc.exchange_rate)"/></th>
+                                            </tr>
+                                            <tr>
+                                                <th style="background-color: #adb5bd">Price USD</th>
+                                                <td/>
+                                                <td/>
+                                                <th class="text-right" style="background-color: #adb5bd"><span t-esc="'{0:,.2f}'.format(doc.price_per_piece)"/></th>
+                                            </tr>
+                                        </table>
+                                        <table>
+                                            <tr>
+                                                <th>Wattak</th>
+                                                <th colspan="2" class="text-right"></th>
+                                            </tr>
+                                            <tr class="text-center">
+                                                <th style="width:50%; border: 1px solid black; background-color: #adb5bd">TARGET PRICE</th>
+                                                <th style="width:20%"/>
+                                                <th style="width:30%; border-bottom: 2px solid black"></th>
+                                            </tr>
+                                        </table>
+                                        <table style="margin-top:20px">
+                                            <tr class="text-center" style="margin-top:20px;">
+                                                <th style="width:50%; border: 1px solid black; background-color: #adb5bd">QUOTED PRICE</th>
+                                                <th style="width:20%"/>
+                                                <th style="width:30%; border-bottom: 2px solid black"></th>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="col-4">
+                                        <table class="b">
+                                            <tr class="text-center">
+                                                <th colspan="2">Trims Detail</th>
+                                            </tr>
+                                            <tr t-foreach="doc.cs_trims_line_ids" t-as="lines">
+                                                <td style="width:60%">
+                                                    <span t-esc="lines.trims.name"/>
+                                                </td>
+                                                <td class="text-right" style="width:40%">
+                                                    <span t-esc="'{0:,.2f}'.format(lines.unit_price)"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="background-color: #adb5bd">Total</th>
+                                                <th class="text-right" style="background-color: #adb5bd"><span t-esc="'{0:,.2f}'.format(doc.trims_total)"/></th>
+                                            </tr>
+                                        </table>
+
+                                        <table class="b" style="margin-top: 15px">
+                                            <tr class="text-center">
+                                                <th colspan="4">Fabric Detail</th>
+                                            </tr>
+                                            <tr>
+                                                <th style="width:40%">
+                                                    <span>Name</span>
+                                                </th>
+                                                <th class="text-right" style="width:20%">
+                                                    <span>Cons</span>
+                                                </th>
+                                                <th class="text-right" style="width:20%">
+                                                    <span>Price</span>
+                                                </th>
+                                                <th class="text-right" style="width:20%">
+                                                    <span>Total</span>
+                                                </th>
+                                            </tr>
+                                            <tr t-foreach="doc.cs_fabric_line_ids" t-as="lines">
+                                                <td style="width:40%">
+                                                    <span t-esc="lines.fabric_items.name"/>
+                                                </td>
+                                                <td class="text-right" style="width:20%">
+                                                    <span t-esc="'{0:,.2f}'.format(lines.consumption)"/>
+                                                </td>
+                                                <td class="text-right" style="width:20%">
+                                                    <span t-esc="'{0:,.2f}'.format(lines.price)"/>
+                                                </td>
+                                                <td class="text-right" style="width:20%">
+                                                    <span t-esc="'{0:,.2f}'.format(lines.total)"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="background-color: #adb5bd">Total</th>
+                                                <th colspan="3" class="text-right" style="background-color: #adb5bd"><span t-esc="'{0:,.2f}'.format(doc.fabric_total)"/></th>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top:20px">
+                                <table>
+                                    <tr class="text-center">
+                                        <th style="width:20%">Checked By</th>
+                                        <th style="width:20%; border-bottom:2px solid black"></th>
+                                        <th style="width:20%"/>
+                                        <th style="width:20%">Approved By</th>
+                                        <th style="width:20%; border-bottom:2px solid black"></th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

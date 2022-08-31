@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+action_costing_sheet_green_clothing,action.costing.sheet.green.clothing,model_costing_sheet_green_clothing,,1,1,1,1
+action_costing_parameters_green_clothing,action.costing.parameters.green.clothing,model_costing_parameters_green_clothing,,1,1,1,1
+action_costing_sheet_parameter_lines,action.costing.sheet.parameter.lines,model_costing_sheet_parameter_lines,,1,1,1,1
+action_costing_sheet_trims_lines,action.costing.sheet.trims.lines,model_costing_sheet_trims_lines,,1,1,1,1
+action_costing_sheet_fabric_lines,action.costing.sheet.fabric.lines,model_costing_sheet_fabric_lines,,1,1,1,1

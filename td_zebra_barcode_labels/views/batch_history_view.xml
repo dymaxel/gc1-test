@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="batch_history_view" model="ir.ui.view">
+        <field name="name">Batch History Report</field>
+        <field name="model">batch.history</field>
+        <field name="arch" type="xml">
+            <tree string="Batch Histort Report" create="0" edit="0">
+                <field name="batch_no"/>
+                <field name="product_id"/>
+                <field name="qty"/>
+                <field name="print_date"/>
+                <field name="user_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_batch_history" model="ir.actions.act_window">
+        <field name="name">Batch History Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">batch.history</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem id="menu_batch_history" name="Batch History"
+        action="action_batch_history" parent="td_zebra_barcode_labels.menu_main_zbarcode_labels"
+        sequence="30" groups="td_zebra_barcode_labels.group_zbarcode_labels" />
+
+    <record model="ir.ui.view" id="res_user_inherit_zebra">
+        <field name="name">Users Pricelist</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Pricelist">
+                    <group>
+                        <group>
+                            <field name='pricelist_id' options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'/>
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

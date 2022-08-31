@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?> 
+
+<odoo>
+	<data>
+		<record id="sh_barcode_inherit_sale" model="ir.ui.view">
+			<field name="name">product.template.form.barcode</field>
+			<field name="model">product.template</field>
+			<field name="inherit_id" ref="product.product_template_only_form_view"/>
+			<field name="arch" type="xml">
+				<xpath expr="//notebook" position="inside">
+					<page string="Product Barcode Generator">
+                        <div>
+                        	<group colspan="2">
+                   				<field name="field_checkbox" string="Generate Product Barcode On Product Create?"/>
+                   			</group>
+                        </div>
+					</page>
+				</xpath>
+			</field>
+		</record>
+		<record id="sh_res_company_product_barcode_form_inherit" model="ir.ui.view">
+			<field name="name">res.company.form.barcode</field>
+			<field name="model">res.company</field>
+			<field name="inherit_id" ref="base.view_company_form"/>
+			<field name="arch" type="xml">				
+				<xpath expr="//notebook" position="inside">
+					<page string="EAN-13 Product Barcode Generator">
+                        <div>
+                        	<group colspan="2">
+                   				<field name="generate_barcode_on_product" string="Generate Product Barcode On Product Create?"/>
+                   			</group>
+                        </div>
+					</page>
+				</xpath>
+			</field>			
+		</record>
+		
+		<record id="sh_form_product_product_generate_barcode_form_view" model="ir.ui.view">
+			<field name="name">generate.product.barcode.form</field>
+			<field name="model">generate.product.barcode</field>
+			<field name="arch" type="xml">
+				<form string="Product Barcode" groups="sh_barcode_generator_simple.group_barcode_generator">
+					<group>
+						<group colspan="2">
+							<field name="overwrite_existing" invisible="1"/>
+						</group>					
+ 					</group>						
+	                    <footer>
+	                        <button string="Generate Barcode" name="generate_barcode" type="object" default_focus="1" class="btn-primary"/>
+	                        <button string="Cancel" class="btn-default" special="cancel"/>
+	                    </footer>			
+				</form>
+			</field>
+		</record>
+
+       <record id="sh_action_proudct_product_generte_barcode" model="ir.actions.act_window">
+            <field name="name">Generate Barcode</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="binding_model_id" ref="product.model_product_product"/>
+         	<field name="res_model">generate.product.barcode</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+<!--            <field name="groups_id">sh_barcode_generator_simple.group_barcode_generator</field>-->
+            <field name="binding_model_id" ref="product.model_product_product" />
+        </record>
+				
+       <record id="sh_action_proudct_template_generte_barcode" model="ir.actions.act_window">
+            <field name="name">Generate Barcode</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="binding_model_id" ref="product.model_product_template" />
+         	<field name="res_model">generate.product.barcode</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+<!--            <field name="groups_id">sh_barcode_generator_simple.group_barcode_generator</field>-->
+            <field name="binding_model_id" ref="product.model_product_template" />
+        </record>
+	</data>
+</odoo>

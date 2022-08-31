@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="company_form_inherit_approval" model="ir.ui.view">
+        <field name="name">res.company.form.approval.inherit</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Approvals">
+                    <group>
+                        <group>
+                            <field name="purchase_approval"/>
+                            <field name="po_double_validation" attrs="{'invisible': [('purchase_approval', '=', False)], 'required': [('purchase_approval', '!=', False)]}"/>
+                        </group>
+                        <group>
+                            <field name="sale_approval"/>
+                            <field name="payment_approval"/>
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

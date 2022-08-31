@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <record id="vendor_type_tree_view" model="ir.ui.view">
+        <field name="name">vendor.type.tree.view</field>
+        <field name="model">vendor.type</field>
+        <field name="arch" type="xml">
+           <tree string="Vendor Type">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="vendor_type_form_view" model="ir.ui.view">
+        <field name="name">vendor.type.form.view</field>
+        <field name="model">vendor.type</field>
+        <field name="arch" type="xml">
+            <form string="Cendor Type">
+                <sheet>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                    <group>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_vendor_type" model="ir.actions.act_window">
+        <field name="name">Vendor  Type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">vendor.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_vendor_type"
+        name="Vendor Type"
+        action="action_vendor_type"
+        parent="purchase.menu_purchase_config"
+        sequence="2"/>
+</odoo>

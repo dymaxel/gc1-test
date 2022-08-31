@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="dying_purchase_order_view_inherit" model="ir.ui.view">
+        <field name="name">dying_purchase_order_view_form_inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//header/button[@name='button_approve']" position="attributes">
+                    <attribute name="groups">green_clothing.group_green_clothing_costing_sheet_cs_approval</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom']" position="after">
+                    <field name="cs_price"/>
+                    <field name="last_purchase_price" readonly="1" force_save="1"/>
+                    <field name="last_vendor_name" readonly="1" force_save="1"/>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+</odoo>

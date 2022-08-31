@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="sale_report_serial_number_inherit" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//table[1]/thead/tr[1]/th[1]" position="before">
+            <th class="text-left">Sr#</th>>
+        </xpath>
+        <xpath expr="//table[1]/tbody/t[2]/tr[1]/t[1]/td[1]" position="before">
+            <td class="text-left">
+                <span t-field="line.sl_no"/>
+            </td>
+        </xpath>
+        <xpath expr="//div[hasclass('clearfix')]" position="after">
+            <div>
+                Total Quantity:
+                <span t-field="doc.total_product_qty"/>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="account_report_serial_number_inherit" inherit_id="account.report_invoice_document">
+        <xpath expr="//table[1]/thead/tr[1]/th[1]" position="before">
+            <th class="text-left">Sr#</th>
+        </xpath>
+        <xpath expr="//td[@name='account_invoice_line_name']" position="before">
+            <td class="text-left">
+                <span t-field="line.sl_no"/>
+            </td>
+        </xpath>
+        <xpath expr="//div[hasclass('clearfix')]" position="after">
+            <div>
+                Total Quantity:
+                <span t-field="o.total_product_qty"/>
+            </div>
+            <div>
+                Total Amount in PKR Currency:
+                <span t-field="o.amount_in_words"/>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="purchase_report_serial_number_inherit" inherit_id="purchase.report_purchaseorder_document">
+        <xpath expr="//table[1]/thead/tr[1]/th[1]" position="before">
+            <th class="text-left">Sr#</th>
+        </xpath>
+        <xpath expr="//td[@id='product']" position="before">
+            <td class="text-left">
+                <span t-field="line.sl_no"/>
+            </td>
+        </xpath>
+        <xpath expr="//table[1]/thead/tr[1]/th[2]" position="after">
+            <th class="text-left">Workorder#</th>
+        </xpath>
+        <xpath expr="//td[@name='td_taxes']" position="before">
+            <td class="text-left">
+                <span t-field="line.workorder_id"/>
+            </td>
+        </xpath>
+        <xpath expr="//div[@id='total']" position="after">
+            <div>
+                Total Quantity:
+                <span t-field="o.total_product_qty"/>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>

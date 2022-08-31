@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="purchase_order_form_inherit_approval" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit.approval</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='button_approve']" position="replace">
+                <field name="is_approve_visible" invisible="1"/>
+                <button name="button_approve" type="object" string="Approve Order" class="oe_highlight" attrs="{'invisible': [('is_approve_visible', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_purchase_order_approval" model="ir.actions.act_window">
+        <field name="name">Purchase Approval</field>
+        <field name="res_model">purchase.order</field>
+        <field name="view_id" ref="purchase.purchase_order_tree"/>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state','in',('first_approval', 'second_approval'))]</field>
+        <field name="filter" eval="True"/>
+    </record>
+
+    <menuitem
+        id="menu_purchase_approval"
+        name="Purchase Approval"
+        parent="purchase.menu_procurement_management"
+        sequence="10"
+        groups="purchase_approval.group_first_approval,purchase_approval.group_second_approval"
+        action="purchase_approval.action_purchase_order_approval"/>
+
+</odoo>
